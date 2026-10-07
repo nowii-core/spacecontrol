@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NEXUS-7 // Deep Space Control</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Rajdhani:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<canvas id="starfield"></canvas>
+<div class="scanlines"></div>
+
+<!-- BOOT -->
+<div class="boot" id="boot">
+  <div class="boot-inner">
+    <pre class="boot-ascii">
+ ███╗   ██╗███████╗██╗  ██╗██╗   ██╗███████╗   ███████╗
+ ████╗  ██║██╔════╝╚██╗██╔╝██║   ██║██╔════╝   ╚════██║
+ ██╔██╗ ██║█████╗   ╚███╔╝ ██║   ██║███████╗       ██╔╝
+ ██║╚██╗██║██╔══╝   ██╔██╗ ██║   ██║╚════██║      ██╔╝
+ ██║ ╚████║███████╗██╔╝ ██╗╚██████╔╝███████║      ██║
+ ╚═╝  ╚═══╝╚══════╝╚═╝  ╚═╝ ╚═════╝ ╚══════╝      ╚═╝
+    </pre>
+    <p class="boot-sub">DEEP SPACE CONTROL OPERATING SYSTEM</p>
+    <div class="boot-log" id="bootLog"></div>
+    <div class="boot-bar"><div class="boot-fill" id="bootFill"></div></div>
+    <p class="boot-pct" id="bootPct">0%</p>
+  </div>
+</div>
+
+<!-- APP -->
+<div class="app" id="app">
+  <aside class="rail">
+    <div class="rail-logo">N7</div>
+    <button class="rail-btn active" data-view="overview" title="Overview">◉</button>
+    <button class="rail-btn" data-view="navigation" title="Navigation">✧</button>
+    <button class="rail-btn" data-view="systems" title="Systems">⚙</button>
+    <button class="rail-btn" data-view="crew" title="Crew">☻</button>
+    <button class="rail-btn" data-view="logs" title="Logs">▤</button>
+    <div class="rail-spacer"></div>
+    <button class="rail-btn" id="muteBtn" title="Audio">♪</button>
+  </aside>
+
+  <header class="hud">
+    <div class="hud-left">
+      <span class="hud-tag">MISSION</span>
+      <span class="hud-val">ODYSSEY-7</span>
+      <span class="hud-sep">//</span>
+      <span class="hud-tag">T+</span>
+      <span class="hud-val mono" id="hudMissionTime">00:00:00</span>
+    </div>
+    <div class="hud-center" id="hudBreadcrumb">OVERVIEW</div>
+    <div class="hud-right">
+      <span class="hud-status"><i class="dot ok"></i>NOMINAL</span>
+      <span class="hud-val mono" id="hudClock">--:--:--</span>
+    </div>
+  </header>
+
+  <main class="viewport" id="viewport">
+
+    <!-- OVERVIEW -->
+    <section class="view active" id="view-overview">
+      <div class="grid-overview">
+        <div class="panel panel-planet">
+          <div class="panel-hd">
+            <span class="panel-title">◆ TERRA — ORBITAL VIEW</span>
+            <span class="panel-tag">LIVE</span>
+          </div>
+          <div class="canvas-wrap"><canvas id="planetCanvas"></canvas></div>
+          <div class="mini-stats">
+            <div><label>ALTITUDE</label><span class="mono" id="alt">420.7 km</span></div>
+            <div><label>VELOCITY</label><span class="mono" id="vel">7.66 km/s</span></div>
+            <div><label>INCLINATION</label><span class="mono" id="inc">51.6°</span></div>
+            <div><label>ORBIT</label><span class="mono" id="orb">92.4 min</span></div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-hd"><span class="panel-title">◆ RADAR</span><span class="panel-tag">SCAN</span></div>
+          <div class="canvas-wrap"><canvas id="radarCanvas"></canvas></div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-hd"><span class="panel-title">◆ COMMS LINK</span><span class="panel-tag" id="signalTag">STRONG</span></div>
+          <div class="canvas-wrap"><canvas id="signalCanvas"></canvas></div>
+          <div class="mini-stats">
+            <div><label>FREQ</label><span class="mono">14.28 GHz</span></div>
+            <div><label>LATENCY</label><span class="mono" id="latency">182 ms</span></div>
+            <div><label>BANDWIDTH</label><span class="mono">2.4 Mbps</span></div>
+          </div>
+        </div>
+
+        <div class="panel wide">
+          <div class="panel-hd"><span class="panel-title">◆ SUBSYSTEM TELEMETRY</span><span class="panel-tag">STREAM</span></div>
+          <div class="canvas-wrap"><canvas id="telemetryCanvas"></canvas></div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-hd"><span class="panel-title">◆ ALERTS</span><span class="panel-tag" id="alertCount">0</span></div>
+          <div class="alert-list" id="alertList"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- NAVIGATION -->
+    <section class="view" id="view-navigation">
+      <div class="grid-nav">
+        <div class="panel">
+          <div class="panel-hd"><span class="panel-title">◆ STAR MAP</span><span class="panel-tag">SECTOR 47B</span></div>
+          <div class="canvas-wrap tall"><canvas id="starMapCanvas"></canvas></div>
+        </div>
+        <div class="panel">
+          <div class="panel-hd"><span class="panel-title">◆ WAYPOINTS</span></div>
+          <div class="waypoint-list" id="waypointList"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SYSTEMS -->
+    <section class="view" id="view-systems">
+      <div class="systems-grid" id="systemsGrid"></div>
+    </section>
+
+    <!-- CREW -->
+    <section class="view" id="view-crew">
+      <div class="crew-grid" id="crewGrid"></div>
+    </section>
+
+    <!-- LOGS -->
+    <section class="view" id="view-logs">
+      <div class="panel">
+        <div class="panel-hd"><span class="panel-title">◆ MISSION LOG</span><span class="panel-tag" id="logCount">0 EVENTS</span></div>
+        <div class="log-list" id="logList"></div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="statusbar">
+    <span id="statusLeft">SYS: NOMINAL</span>
+    <span id="statusCenter">NEXUS-7 v3.2.1 // SECURE CHANNEL</span>
+    <span id="statusRight">UPTIME 00:00:00</span>
+  </footer>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
