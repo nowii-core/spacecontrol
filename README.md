@@ -4,7 +4,7 @@ License: MIT HTML5 CSS3 JavaScript
 
 Un centro di controllo spaziale retro-futuristico costruito con HTML, CSS e JavaScript puri. Nessuna dipendenza esterna, nessun backend.
 
-## ✨ Funzionalità
+##  Funzionalità
 
 - Boot sequence in stile BIOS con logo ASCII e log progressivo
 - Starfield animato con centinaia di stelle in parallasse
@@ -26,13 +26,13 @@ Un centro di controllo spaziale retro-futuristico costruito con HTML, CSS e Java
 - Salvataggio automatico su localStorage
 - Scorciatoie tastiera complete
 
-## 🛠 Tecnologie
+##  Tecnologie
 
 - HTML5
 - CSS3 (Grid, Flexbox, animazioni, backdrop-filter, custom properties, conic-gradient)
 - JavaScript (ES6+, Canvas 2D API, requestAnimationFrame, localStorage)
 
-## 📖 Scorciatoie
+##  Scorciatoie
 
 | Tasto | Azione |
 |---|---|
@@ -41,7 +41,7 @@ Un centro di controllo spaziale retro-futuristico costruito con HTML, CSS e Java
 | Click waypoint | Imposta rotta verso il pianeta |
 | ESC | Chiudi eventuali overlay |
 
-## 🚀 Deploy
+##  Deploy
 
 Basta aprire `index.html` nel browser. Per GitHub Pages:
 
@@ -51,6 +51,6 @@ Basta aprire `index.html` nel browser. Per GitHub Pages:
 
 **Demo live:** https://nowii-core.github.io/nexus-7/
 
-## 📫 Contatti
+##  Contatti
 
 GitHub: [@nowii-core](https://github.com/nowii-core)
