@@ -36,9 +36,7 @@
 ## Preview
 
 ![nexus·7 Screenshot](Screenshot-1.png)
-
-> **Live Demo:** [nowii-core.github.io/spacecontrol/](https://nowii-core.github.io/spacecontrol/)
-
+> **Live Demo:** [nowii-core.github.io/spacecontrol/spacecontrol/](https://nowii-core.github.io/spacecontrol/spacecontrol/)
 ---
 
 ## Key Features
